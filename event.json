@@ -1,0 +1,6 @@
+{
+	"bucket": "thaumaturgy",
+	"packages": {
+		"sharp":"0.17.0"
+	}
+}

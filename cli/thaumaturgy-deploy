@@ -68,7 +68,7 @@ function deploy(){
 	AWS.config.update({
 		accessKeyId: config.awsAccessKey,
 		secretAccessKey: config.awsSecretAccessKey,
-		region: 'us-east-1'
+		region: config.awsRegion
 	});
 
 	var lambda = new AWS.Lambda();

@@ -6,10 +6,10 @@ var fs = require('fs');
 var AWS = require('aws-sdk');
 var Promise = require('bluebird');
 
-var description = "Build NPM packages using Thaumaturgy in AWS Lambda." + 
-	"\n  Package list should be in a space-separated list of packages in the same format as a package.json file." + 
-	"\n\n  Examples:" + "\n\n  thaumaturgy build mkdirp:^0.5.1" + 
-	"\n  thaumaturgy build mysql2:0.15.8 mongodb:~2.0.45" + 
+var description = "Build NPM packages using Thaumaturgy in AWS Lambda." +
+	"\n  Package list should be in a space-separated list of packages in the same format as a package.json file." +
+	"\n\n  Examples:" + "\n\n  thaumaturgy build mkdirp:^0.5.1" +
+	"\n  thaumaturgy build mysql2:0.15.8 mongodb:~2.0.45" +
 	"\n  thaumaturgy build redis:latest --download /tmp/redis.zip" +
 	"\n  thaumaturgy build --file package.json";
 
@@ -68,7 +68,7 @@ if (!program.file){ // Command line
 		console.log('Could not read file at',program.file);
 		process.exit(1);
 	}
-	packages = dependencies;	
+	packages = dependencies;
 
 	console.log("Invoking Thaumaturgy Lambda in AWS for dependencies in", program.file);
 }
@@ -76,7 +76,7 @@ if (!program.file){ // Command line
 AWS.config.update({
 	accessKeyId: config.awsAccessKey,
 	secretAccessKey: config.awsSecretAccessKey,
-	region: 'us-east-1'
+	region: config.awsRegion
 });
 
 var lambda = new AWS.Lambda();
@@ -96,7 +96,7 @@ lambda.invoke(params, function(err, data ){
 		process.exit(1);
 	}
 	else {
-		console.log('Build completed successfully.');	
+		console.log('Build completed successfully.');
 
 		if ( program.download ){
 			console.log('Downloading.')
